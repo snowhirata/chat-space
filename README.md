@@ -51,7 +51,7 @@ Things you may want to cover:
 
 | Column     | Type        | Options                        |
 |:-----------|------------:|:------------------------------:|
-| group_name | string      | null: false                    |
+| name       | string      | null: false                    |
 
 ### Association
 - has_many   :users, through: :menbers
@@ -65,7 +65,7 @@ Things you may want to cover:
 | user_id    | integer     | null: false, foreign_key: true |
 | group_id   | integer     | null: false, foreign_key: true |
 | image      | string      | foreign_key: true              |
-| body       | text        | null: false, foreign_key: true |
+| body       | text        | foreign_key: true              |
 
 ### Association
 - belongs_to :users
