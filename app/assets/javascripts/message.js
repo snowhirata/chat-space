@@ -35,7 +35,7 @@ $(function(){
     .done(function(data) {
       var html = buildHTML(data);
       $('.messages').append(html);
-      $('.form__message, .form__mask__image').val('');
+      $('form').reset();
       $('.message:last').animate({scrollTop: $('.message:last').get(0).scrollHeight}, 'slow');
     })
     .fail(function() {
