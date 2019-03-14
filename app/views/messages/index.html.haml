@@ -9,11 +9,11 @@
           = @group.name
         %ul.left-header__members
           Member：
-          - @group.users.each do |user|
-            %span.chat-header__user= user.name
+          - @members.each do |member|
+            = member.name
       .right-header
         .right-header__button
-          Edit
+          = link_to "Edit", edit_group_path(params[:group_id]), method: :get
     .messages
       = render @messages
 
