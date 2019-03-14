@@ -12,9 +12,9 @@ $(function() {
     return html;
   }
 
-  function appendErrMsgToHTML(user) {
+  function appendError(error) {
     var html = `<div class="chat-group-user clearfix">
-                  <p class="chat-group-user__name">${user.name}</p>
+                  <p class="chat-group-user__name">${error}</p>
                 </div>`
     search_list.append(html);
   }
@@ -46,7 +46,7 @@ $(function() {
         });
       }
       else {
-        appendErrMsgToHTML("一致するユーザーはいません");
+        appendError("一致するユーザーはいません");
       }
     })
     .fail(function() {
