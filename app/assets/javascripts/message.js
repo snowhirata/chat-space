@@ -24,7 +24,7 @@ $(function(){
     e.preventDefault();
     var formData = new FormData(this);
     var url = $(this).attr('action');
-     $.ajax({
+    $.ajax({
       url: url,
       type: "POST",
       data: formData,
@@ -35,7 +35,7 @@ $(function(){
     .done(function(data) {
       var html = buildHTML(data);
       $('.messages').append(html);
-      $('form').reset();
+      $('form')[0].reset();
       $('.message:last').animate({scrollTop: $('.message:last').get(0).scrollHeight}, 'slow');
     })
     .fail(function() {
@@ -45,4 +45,36 @@ $(function(){
       $('.form__submit').prop("disabled", false);
     });
   });
+
+  $(function(){
+    $(function(){
+      if(location.href.match(/\/groups\/\d+\/messages/)) {
+        setInterval(update, 5000);
+      }
+    });
+    function update(){
+      if($('.messages')[0]){
+        var last_id = $('.message:last').data('messageId');
+      }else{
+        clearInterval(interval)
+      }
+      $.ajax ({
+        url: location.href,
+        type: 'GET',
+        data: { id: last_id },
+        dataType: 'json',
+        processData: false,
+        contentType: false
+      })
+      .done(function(data){
+        data.forEach(function(data){
+          var html = buildHTML(data)
+          $('.messages').append(html);
+        })
+      })
+      .fail(function(data){
+        alert('自動更新に失敗しました')
+      })
+    }
+  })
 });
