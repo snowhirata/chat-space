@@ -70,5 +70,5 @@ gem 'mini_magick'
 gem 'fog-aws'
 
 group :production do
-  gem 'unicorn'
+  gem 'unicorn', '5.4.1'
 end
