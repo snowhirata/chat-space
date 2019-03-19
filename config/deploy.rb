@@ -12,7 +12,7 @@ set :rbenv_ruby, '2.3.1'
 set :ssh_options, auth_methods: ['publickey'],
                   keys: ['~/.ssh/tadashi.pem']
 
-set :unicorn_pid, -> { "#{app_path}/tmp/pids/unicorn.pid" }
+set :unicorn_pid, -> { "#{shared_path}/tmp/pids/unicorn.pid" }
 set :unicorn_config_path, -> { "#{current_path}/config/unicorn.rb" }
 set :keep_releases, 5
 
@@ -34,10 +34,10 @@ namespace :deploy do
   desc 'upload secrets.yml'
   task :upload do
     on roles(:app) do |host|
-      if test "[ ! -d #{app_path}/config ]"
-        execute "mkdir -p #{app_path}/config"
+      if test "[ ! -d #{shared_path}/config ]"
+        execute "mkdir -p #{shared_path}/config"
       end
-      upload!('config/secrets.yml', "#{app_path}/config/secrets.yml")
+      upload!('config/secrets.yml', "#{shared_path}/config/secrets.yml")
     end
   end
   before :starting, 'deploy:upload'
