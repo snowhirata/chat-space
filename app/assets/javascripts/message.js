@@ -55,26 +55,27 @@ $(function(){
     function update(){
       if($('.messages')[0]){
         var last_id = $('.message:last').data('messageId');
-      }else{
-        clearInterval(interval)
-      }
+
       $.ajax ({
         url: location.href,
         type: 'GET',
         data: { id: last_id },
-        dataType: 'json',
-        processData: false,
-        contentType: false
+        dataType: 'json'
       })
       .done(function(data){
-        data.forEach(function(data){
-          var html = buildHTML(data)
-          $('.messages').append(html);
-        })
+        var messages = data;
+        var AddHtml = "";
+        $.each(messages, function(i, message){
+          AddHtml += buildHTML(message);
+        });
+        $('.messages').html(AddHtml);
       })
       .fail(function(data){
         alert('自動更新に失敗しました')
       })
+      }else{
+        clearInterval(interval)
+      }
     }
   })
 });
